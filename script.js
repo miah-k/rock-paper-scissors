@@ -12,59 +12,91 @@ function getComputerChoice(){
     }
   
     return choice; 
-  }
-
+}
+  
 function getHumanChoice(){
     let humanChoice = prompt('Enter your hand: ');
+
+    if(humanChoice == null){
+        return humanChoice; 
+    }
+
     let humanChoiceLower = humanChoice.toLowerCase();
-    
-    if(humanChoiceLower != 'scissors' && humanChoiceLower!='rock' && humanChoiceLower != 'paper'){
-      alert('Please enter a valid hand');
+
+    while(humanChoiceLower != 'scissors' && humanChoiceLower!='rock' && humanChoiceLower != 'paper'){
+        alert('Please enter a valid hand');
+        humanChoice = prompt('Enter your hand: ');
+        humanChoiceLower = humanChoice.toLowerCase();
     }
+
     return humanChoiceLower;
-  }
+}
+  
+function playGame(){
+    let humanScore = 0;
+    let computerScore = 0; 
+  
+    function playRound(humanChoice, computerChoice) {
+        console.log(`humanChoice: ${humanChoice}`); 
+        console.log(`computerChoice: ${computerChoice}`); 
+  
+        if(humanChoice === computerChoice){
+            console.log("It's a tie!"); 
+        }
+        if(humanChoice === 'rock'){
+            if(computerChoice === 'paper'){
+                computerScore += 1;
+                console.log('You lose! Paper beats Rock.');
+            }
+            else if(computerChoice === 'scissors'){
+                humanScore += 1;
+                console.log('You win! Rock beats Scissors.');
+            }
+        }
+        if(humanChoice === 'paper'){
+            if(computerChoice === 'rock'){
+                humanScore += 1;
+                console.log('You win! Paper beats Rock.');
+            }
+            else if(computerChoice == 'scissors'){
+                computerScore += 1;
+                console.log('You loose! Scissors beats Paper.'); 
+            }
+        }
+        if(humanChoice === 'scissors'){
+            if(computerChoice === 'rock'){
+                computerScore += 1;
+                console.log('You loose! Rock beats Scissors.');
+            }
+            else if(computerChoice === 'paper'){
+                humanScore += 1;
+                console.log('You win! Scissors beats Paper.'); 
+            }
+        }
+    }
+  
+    for(let i = 1; i <= 5; i++){
+        console.log(`\nRound: ${i}`); 
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        if(humanSelection == null){
+            break; 
+        }
+        playRound(humanSelection, computerSelection);
+    }
+  
+    if(humanScore > computerScore){
+        console.log('\nGame Over : You win!');
+    }
+    else if(computerScore > humanScore){
+        console.log('\nGame Over : You lost!');
+    }
+    else{
+        console.log('\nGame Over : Tie.');
+    }
+  
+    console.log(`Your Score: ${humanScore}`); 
+    console.log(`ComputerScore: ${computerScore}`); 
+}
 
-  let humanScore = 0;
-  let computerScore = 0; 
-
-function playRound(humanChoice, computerChoice) {
-    console.log(`humanChoice: ${humanChoice}`); 
-    console.log(`computerChoice: ${computerChoice}`); 
-
-    if(humanChoice === computerChoice){
-      console.log("It's a tie!"); 
-    }
-    if(humanChoice === 'rock'){
-      if(computerChoice === 'paper'){
-        computerScore += 1;
-        console.log('You lose! Paper beats Rock.');
-      }
-      else if(computerChoice === 'scissors'){
-        humanScore += 1;
-        console.log('You win! Rock beats Scissors.');
-      }
-    }
-    if(humanChoice === 'paper'){
-      if(computerChoice === 'rock'){
-        humanScore += 1;
-        console.log('You win! Paper beats Rock.');
-      }
-      else if(computerChoice == 'scissors'){
-        computerScore += 1;
-        console.log('You loose! Scissors beats Paper.'); 
-      }
-    }
-    if(humanChoice === 'scissors'){
-      if(computerChoice === 'rock'){
-        computerScore += 1;
-        console.log('You loose! Rock beats Scissors.');
-      }
-      else if(computerChoice === 'paper'){
-        humanScore += 1;
-        console.log('You win! Scissors beats Paper.'); 
-      }
-    }
-  }
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
+playGame();
