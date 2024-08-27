@@ -13,7 +13,6 @@ function getComputerChoice(){
   
     return choice; 
   }
-  console.log(getComputerChoice());
 
 function getHumanChoice(){
     let humanChoice = prompt('Enter your hand: ');
@@ -25,4 +24,47 @@ function getHumanChoice(){
     return humanChoiceLower;
   }
 
-  console.log(getHumanChoice()); 
+  let humanScore = 0;
+  let computerScore = 0; 
+
+function playRound(humanChoice, computerChoice) {
+    console.log(`humanChoice: ${humanChoice}`); 
+    console.log(`computerChoice: ${computerChoice}`); 
+
+    if(humanChoice === computerChoice){
+      console.log("It's a tie!"); 
+    }
+    if(humanChoice === 'rock'){
+      if(computerChoice === 'paper'){
+        computerScore += 1;
+        console.log('You lose! Paper beats Rock.');
+      }
+      else if(computerChoice === 'scissors'){
+        humanScore += 1;
+        console.log('You win! Rock beats Scissors.');
+      }
+    }
+    if(humanChoice === 'paper'){
+      if(computerChoice === 'rock'){
+        humanScore += 1;
+        console.log('You win! Paper beats Rock.');
+      }
+      else if(computerChoice == 'scissors'){
+        computerScore += 1;
+        console.log('You loose! Scissors beats Paper.'); 
+      }
+    }
+    if(humanChoice === 'scissors'){
+      if(computerChoice === 'rock'){
+        computerScore += 1;
+        console.log('You loose! Rock beats Scissors.');
+      }
+      else if(computerChoice === 'paper'){
+        humanScore += 1;
+        console.log('You win! Scissors beats Paper.'); 
+      }
+    }
+  }
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
