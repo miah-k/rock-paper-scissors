@@ -1,2 +1,2 @@
 # rock-paper-scissors
-A rock paper scissors game, where the user plays 5 rounds against the computer. The game is played in the console and uses basic JavaScript. 
+A rock paper scissors game, where the user plays against the computer until one player earns five points. The game uses basic JavaScript and DOM methods. 
