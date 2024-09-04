@@ -1,5 +1,5 @@
 function getComputerChoice(){
-    let pickerValue = Math.floor(Math.random() * 10)%3; 
+    let pickerValue = Math.floor(Math.random() * 3); 
     let choice;
     if(pickerValue == 0){
       choice = "rock";
@@ -17,13 +17,13 @@ function getComputerChoice(){
 function gameOver(humanScore, computerScore){
     const paragraph = document.createElement("p");
     if(humanScore > computerScore){
-        paragraph.textContent='\nGame Over : You win!';
+        paragraph.textContent='\nGame Over : You win!\n Reload to play again';
     }
     else if(computerScore > humanScore){
-       paragraph.textContent='\nGame Over : You lost!';
+       paragraph.textContent='\nGame Over : You lost!\n Reload to play again';
     }
     else{
-        paragraph.textContent='\nGame Over : Tie.';
+        paragraph.textContent='\nGame Over : Tie.\n Reload to play again';
     }
   
     container.appendChild(paragraph);
