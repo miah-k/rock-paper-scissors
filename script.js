@@ -75,16 +75,17 @@ function playGame(){
         }
     }
   
-    for(let i = 1; i <= 5; i++){
-        console.log(`\nRound: ${i}`); 
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        if(humanSelection == null){
-            break; 
-        }
-        playRound(humanSelection, computerSelection);
-    }
-  
+    let humanSelection;
+    const computerSelection = getComputerChoice();
+    const buttons = document.querySelectorAll("button"); 
+    buttons.forEach((button) => {
+        button.addEventListener("click", () =>{
+            humanSelection = button.id; 
+            playRound(humanSelection, computerSelection); 
+            
+        }); 
+    }); 
+       
     if(humanScore > computerScore){
         console.log('\nGame Over : You win!');
     }
