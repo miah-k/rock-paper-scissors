@@ -13,23 +13,20 @@ function getComputerChoice(){
   
     return choice; 
 }
+
+function gameOver(humanScore, computerScore){
+    const paragraph = document.createElement("p");
+    if(humanScore > computerScore){
+        paragraph.textContent='\nGame Over : You win!';
+    }
+    else if(computerScore > humanScore){
+       paragraph.textContent='\nGame Over : You lost!';
+    }
+    else{
+        paragraph.textContent='\nGame Over : Tie.';
+    }
   
-function getHumanChoice(){
-    let humanChoice = prompt('Enter your hand: ');
-
-    if(humanChoice == null){
-        return humanChoice; 
-    }
-
-    let humanChoiceLower = humanChoice.toLowerCase();
-
-    while(humanChoiceLower != 'scissors' && humanChoiceLower!='rock' && humanChoiceLower != 'paper'){
-        alert('Please enter a valid hand');
-        humanChoice = prompt('Enter your hand: ');
-        humanChoiceLower = humanChoice.toLowerCase();
-    }
-
-    return humanChoiceLower;
+    container.appendChild(paragraph);
 }
   
 function playGame(){
@@ -39,65 +36,61 @@ function playGame(){
     function playRound(humanChoice, computerChoice) {
         console.log(`humanChoice: ${humanChoice}`); 
         console.log(`computerChoice: ${computerChoice}`); 
-  
         if(humanChoice === computerChoice){
-            console.log("It's a tie!"); 
+            paragraph.textContent= "It's a tie!"; 
         }
         if(humanChoice === 'rock'){
             if(computerChoice === 'paper'){
                 computerScore += 1;
-                console.log('You lose! Paper beats Rock.');
+                paragraph.textContent='You lose! Paper beats Rock.';
             }
             else if(computerChoice === 'scissors'){
                 humanScore += 1;
-                console.log('You win! Rock beats Scissors.');
+                paragraph.textContent='You win! Rock beats Scissors.';
             }
         }
         if(humanChoice === 'paper'){
             if(computerChoice === 'rock'){
                 humanScore += 1;
-                console.log('You win! Paper beats Rock.');
+                paragraph.textContent='You win! Paper beats Rock.';
             }
             else if(computerChoice == 'scissors'){
                 computerScore += 1;
-                console.log('You loose! Scissors beats Paper.'); 
+                paragraph.textContent='You loose! Scissors beats Paper.'; 
             }
         }
         if(humanChoice === 'scissors'){
             if(computerChoice === 'rock'){
                 computerScore += 1;
-                console.log('You loose! Rock beats Scissors.');
+                paragraph.textContent='You loose! Rock beats Scissors.';
             }
             else if(computerChoice === 'paper'){
                 humanScore += 1;
-                console.log('You win! Scissors beats Paper.'); 
+                paragraph.textContent='You win! Scissors beats Paper.'; 
             }
         }
+        container.appendChild(paragraph);
     }
   
-    let humanSelection;
-    const computerSelection = getComputerChoice();
-    const buttons = document.querySelectorAll("button"); 
-    buttons.forEach((button) => {
-        button.addEventListener("click", () =>{
-            humanSelection = button.id; 
-            playRound(humanSelection, computerSelection); 
-            
-        }); 
-    }); 
-       
-    if(humanScore > computerScore){
-        console.log('\nGame Over : You win!');
-    }
-    else if(computerScore > humanScore){
-        console.log('\nGame Over : You lost!');
-    }
-    else{
-        console.log('\nGame Over : Tie.');
-    }
-  
-    console.log(`Your Score: ${humanScore}`); 
-    console.log(`ComputerScore: ${computerScore}`); 
+    const buttons = document.querySelector("#buttons"); 
+    const container = document.querySelector("#container"); 
+    const content = document.createElement("div"); 
+    const paragraph = document.createElement("p");
+    let isGameOver = false; 
+
+    content.classList.add("content"); 
+    buttons.addEventListener("click", function(event) {
+        if(isGameOver)return; 
+        const computerSelection = getComputerChoice();
+        playRound(event.target.id, computerSelection); 
+        content.textContent = `Your score: ${humanScore}\n 
+        Computer score: ${computerScore}`;
+        container.appendChild(content); 
+        if(humanScore == 5 || computerScore == 5){
+            gameOver(humanScore, computerScore); 
+            isGameOver=true; 
+        }   
+    });
 }
 
 playGame();
